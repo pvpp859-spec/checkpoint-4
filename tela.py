@@ -41,28 +41,43 @@ def criar_janela():
     global janela,lbl_mensgem,cx_nome,cx_quantidade,cx_preco
 
     janela = ctk.CTk()
-    janela.geometry("550x500")
+    largura = janela.winfo_screenwidth()
+    altura = janela.winfo_screenheight()
+    janela.geometry(f"{largura}x{altura}+0+0")
+    janela.after(0, lambda: janela.state("zoomed"))
     janela.title("Sistema de Gestão Desktop")
 
-    titulo = ctk.CTkLabel(janela,text="Sistema de Gestão Desktop",font=("arial",20))
-    titulo.pack(pady=20)
 
-    cx_nome = ctk.CTkEntry(janela,placeholder_text="nome")
+    retangulo = ctk.CTkFrame(
+        janela,
+        width=400,
+        height=1050,
+        fg_color="#177277",
+        corner_radius=20
+    )
+
+    retangulo.place(relx=0.5, rely=0.5, anchor="center")
+    retangulo.pack_propagate(False)
+
+    titulo = ctk.CTkLabel(retangulo,text="Sistema de Gestão Desktop",font=("arial",20),fg_color="transparent")
+    titulo.pack(pady=50)
+
+    cx_nome = ctk.CTkEntry(retangulo,placeholder_text="nome",fg_color="transparent")
     cx_nome.pack(pady=2)
 
-    cx_quantidade = ctk.CTkEntry(janela,placeholder_text="quantidade")
+    cx_quantidade = ctk.CTkEntry(retangulo,placeholder_text="quantidade",fg_color="transparent")
     cx_quantidade.pack(pady=2)
 
-    cx_preco = ctk.CTkEntry(janela,placeholder_text="preço")
+    cx_preco = ctk.CTkEntry(retangulo,placeholder_text="preço",fg_color="transparent")
     cx_preco.pack(pady=2)
 
-    cadastrar = ctk.CTkButton(janela,text="CADASTRAR",hover_color="dark green",fg_color="green",command=cadastrar_e_atualizar)
+    cadastrar = ctk.CTkButton(retangulo,text="CADASTRAR",hover_color="dark green",fg_color="green",command=cadastrar_e_atualizar)
     cadastrar.pack(pady=10)
     
-    produtos = ctk.CTkButton(janela,text="VER PRODUTOS",hover_color="orange",fg_color="dark orange",command=mostrar_produtos)
+    produtos = ctk.CTkButton(retangulo,text="VER PRODUTOS",hover_color="orange",fg_color="dark orange",command=mostrar_produtos)
     produtos.pack(pady=10)
 
-    lbl_mensgem = ctk.CTkLabel(janela,text="")
+    lbl_mensgem = ctk.CTkLabel(retangulo,text="")
     lbl_mensgem.pack()
-
+    
     janela.mainloop()
