@@ -40,14 +40,21 @@ def buscar_produto():
         print(f"ocorreu um erro ao buscar os produtos: {erro}")
         return []
     
-def atualizar_produto(id,novo_p):
-    pass
+def atualizar_produto(id_produto, nome, quantidade, preco):
+    with conectar() as conexao:
+        cursor = conexao.cursor()
+        cursor.execute("""
+            UPDATE produtos
+            SET produto = ?, quantidade = ?, preço = ?
+            WHERE id = ?
+        """, (nome, quantidade, preco, id_produto))
+        conexao.commit()
 
-def deletar_produto(id, nome):
+def deletar_produto(id_produto):
     try:
         with conectar() as conexao:
             cursor = conexao.cursor()
-            cursor.execute("DELETE FROM produtos WHERE id = ? OR produto = ?", (id, nome))
+            cursor.execute("DELETE FROM produtos WHERE id = ?", (id_produto,))
             conexao.commit()
     except sq.Error as erro:
         print(f"ocorreu um erro ao deletar o produto: {erro}")

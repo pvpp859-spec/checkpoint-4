@@ -21,4 +21,4 @@ def processar_cadastro():
     tela.cx_nome.delete(0, "end")
     tela.cx_quantidade.delete(0, "end")
     tela.cx_preco.delete(0, "end")
-    tela.lbl_mensgem.configure(text="produto cadastrado!!",text_color="green")
+    tela.lbl_mensgem.configure(text="produto cadastrado!!",text_color="light green")
