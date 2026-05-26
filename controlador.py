@@ -1,24 +1,30 @@
-from modelo import inserir_produto
-import tela
+#controlador
+from modelo import inserir_produto, buscar_produto, deletar_produto, atualizar_produto
 
-def processar_cadastro():
-    nome = tela.cx_nome.get()
-    q_txt = tela.cx_quantidade.get()
-    p_txt = tela.cx_preco.get()
+def processar_cadastro(nome, q_txt, p_txt):
 
     if nome == "" or p_txt == "" or q_txt == "":
-        tela.lbl_mensgem.configure(text="campos vazios!!",text_color="red")
-        return
+        return False, "campos vazios!!"
 
     try:
         preco = float(p_txt)
         quantidade = int(q_txt)
+
     except ValueError:
-        tela.lbl_mensgem.configure(text="erro nos numeros!!",text_color="red")
-        return
+        return False, "erro nos numeros!!"
 
     inserir_produto(nome, quantidade, preco)
-    tela.cx_nome.delete(0, "end")
-    tela.cx_quantidade.delete(0, "end")
-    tela.cx_preco.delete(0, "end")
-    tela.lbl_mensgem.configure(text="produto cadastrado!!",text_color="light green")
+
+    return True, "produto cadastrado!!"
+
+
+def listar_produtos():
+    return buscar_produto()
+
+
+def remover_produto(id_produto):
+    deletar_produto(id_produto)
+
+
+def editar_produto(id_produto, nome, quantidade, preco):
+    atualizar_produto(id_produto,nome,int(quantidade),float(preco))

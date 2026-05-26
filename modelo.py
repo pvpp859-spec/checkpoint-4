@@ -1,5 +1,5 @@
+#modelo
 import sqlite3 as sq
-
 
 def conectar():
     return sq.connect("banco.db")
