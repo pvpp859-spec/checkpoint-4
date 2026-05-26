@@ -1,3 +1,5 @@
+import os
+import sys
 import customtkinter as ctk
 import matplotlib.pyplot
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -215,11 +217,14 @@ def criar_janela():
     janela.after(0, lambda: janela.state("zoomed"))
     janela.title("Sistema de Gestão Desktop")
 
-    gif = Image.open("fundo.gif")
+    def caminho_arquivo(nome):
+        if hasattr(sys, "_MEIPASS"):
+            return os.path.join(sys._MEIPASS, nome)
+        return os.path.join(os.path.dirname(__file__), nome)
 
     frames = []
     contador = 0
-
+    gif = Image.open(caminho_arquivo("fundo.gif"))
     for frame in ImageSequence.Iterator(gif):
         if contador >= 100:
             break
